@@ -1,69 +1,37 @@
-# Tuya/Ledvance Gerätedaten-Manager
+# Tuya/Ledvance Device Data Manager
 
-Ein Desktop-Tool zum Abrufen und Verwalten von Gerätedaten für Ledvance-Geräte über die Tuya-API.
+A desktop tool for retrieving and managing device data for Ledvance devices via the Tuya API.
 
-## Funktionen
+## Features
 
-- Benutzeroberfläche zum Verwalten und Abrufen von Gerätedaten.
-- Speichern und Laden von Benutzerdaten (E-Mail und Passwort) für zukünftige Sitzungen.
-- Doppelklick auf eine Zeile in der Geräteübersicht, um detaillierte Informationen anzuzeigen.
-- Möglichkeit, Zelleninhalte aus der Tabelle zu kopieren.
-- Anzeige des Status und Fehlerbehandlung bei Verbindungsproblemen.
+- User interface to manage and retrieve device data.
+- Save and load user data (email and password) for future sessions.
+- Double-click a row in the device overview to display detailed information.
+- Ability to copy cell content from the table.
+- Displays status and error handling for connection issues.
 
-## Voraussetzungen
+## Requirements
 
-- Python 3.12 (andere Versionen sollten ebenfalls funktionieren, aber 3.12 wurde getestet)
-- Die Python-Bibliotheken:
-  - `pycryptodome`
-  - `requests`
+- Downloaded 'LEDVANCE-LOCAL-KEY-SCANNER' folder.
+- LEDVANCE account.
 
 ## Installation
 
-### 1. Python installieren
+**Note:** This application has been tested with Python 3.12. If Python is not installed, you can install the latest version from the Microsoft Store. Any missing required libraries will be automatically installed.
 
-Stellen Sie sicher, dass Python auf Ihrem System installiert ist. Sie können dies überprüfen, indem Sie den folgenden Befehl im Terminal oder in der Eingabeaufforderung ausführen:
+## Usage
 
-```bash
-python --version
-```
+1. Start the program by running the batch script 'start-EN.bat' for English & 'start-DE.bat' for German.
+2. Enter your email address and password in the input fields.
+3. Click **"Retrieve Device Data"** to view a list of your devices.
+4. Click on a cell in the table to copy its content to the clipboard.
+5. Double-click a row to view detailed device information.
+6. Click **"Save User Data"** to store your login credentials for future sessions.
 
-**Hinweis:** Diese Anwendung wurde mit Python 3.12 getestet. Wenn Python noch nicht installiert ist, können Sie die neueste Version über den Microsoft Store installieren:
+## License
 
-```bash
-start ms-windows-store://search/?query=python
-```
+This project is licensed under the [MIT License](LICENSE).
 
-### 2. Abhängigkeiten installieren
+## Help
 
-Nachdem Python installiert wurde, öffnen Sie das Terminal oder die Eingabeaufforderung und installieren Sie die erforderlichen Python-Bibliotheken mit dem folgenden Befehl:
-
-```bash
-pip install pycryptodome requests
-```
-
-### 3. Batch-Skript ausführen
-
-Laden Sie das Batch-Skript `ledvance-key-DE.bat` herunter und führen Sie es aus. Das Skript überprüft, ob Python und die notwendigen Bibliotheken installiert sind und startet die Anwendung:
-
-```bash
-start ledvance-key-DE.bat
-```
-
-Wenn eine der erforderlichen Bibliotheken fehlt, wird sie automatisch installiert.
-
-## Nutzung
-
-1. Starten Sie das Programm, indem Sie das Batch-Skript ausführen.
-2. Geben Sie Ihre E-Mail-Adresse und Ihr Passwort in die Eingabefelder ein.
-3. Klicken Sie auf **"Gerätedaten abrufen"**, um eine Liste Ihrer Geräte anzuzeigen.
-4. Klicken Sie auf eine Zelle in der Tabelle, um deren Inhalt in die Zwischenablage zu kopieren.
-5. Doppelklicken Sie auf eine Zeile, um detaillierte Geräteinformationen anzuzeigen.
-6. Klicken Sie auf **"Benutzerdaten speichern"**, um Ihre Anmeldedaten für zukünftige Sitzungen zu speichern.
-
-## Lizenz
-
-Dieses Projekt ist unter der [MIT-Lizenz](LICENSE) lizenziert.
-
-## Hilfe
-
-Falls du Hilfe benötigst, kannst du auf den **"Hilfe"**-Button in der Anwendung klicken, um eine detaillierte Anleitung zur Verwendung des Programms zu erhalten.
+If you need assistance, click on the **"Help"** button in the application for a detailed guide on how to use the program.
