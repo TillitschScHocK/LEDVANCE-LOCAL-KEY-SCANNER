@@ -35,3 +35,9 @@ This project is licensed under the [MIT License](LICENSE).
 ## Help
 
 If you need assistance, click on the **"Help"** button in the application for a detailed guide on how to use the program.
+
+
+
+This project is available in multiple languages:
+- [English](README-en.md)
+- [Deutsch](README-de.md)
