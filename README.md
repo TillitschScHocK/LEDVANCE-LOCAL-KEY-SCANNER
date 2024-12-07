@@ -1,43 +1,41 @@
-# Tuya/Ledvance Device Data Manager
+# ha-ledvance-tuya-resync-localkey
+pyscript for homeassistant to resync local keys from private tuya API.
 
-A desktop tool for retrieving and managing device data for Ledvance devices via the Tuya API.
+This also works for Sylvania devices by changing/uncommenting the keys in `pyscript_modules/tuya/const.py`.
 
-## Features
+This repository includes
+  - A script `print-local-keys.py` to print out local keys for your Ledvance devices (They must be already registered in the Ledvance app), which can be used in the [LocalTuya integration](https://github.com/rospogrigio/localtuya) for [Home Assistant](https://www.home-assistant.io/) 
+  - Setup via [Pyscript Integration](https://hacs-pyscript.readthedocs.io/en/latest/) to automatically resync local keys
 
-- User interface to manage and retrieve device data.
-- Save and load user data (email and password) for future sessions.
-- Double-click a row in the device overview to display detailed information.
-- Ability to copy cell content from the table.
-- Displays status and error handling for connection issues.
+## To just print out your local keys...
 
-## Requirements
+First, create a Python 3 environment - version 3.10 is confirmed as working.
 
-- Downloaded 'LEDVANCE-LOCAL-KEY-SCANNER' folder.
-- LEDVANCE account.
+Then install the dependencies and run the script:
+```
+pip install -r requirements.txt
+python print-local-keys.py
+```
+## How to resync local keys automatically (via service)
 
-## Installation
+If you have many devices and reset them sometimes by accident, like me, you can create a service for resyncing the local keys. (New local keys are generated if you reset/re-register your devices).  
 
-**Note:** This application has been tested with Python 3.12. If Python is not installed, you can install the latest version from the Microsoft Store. Any missing required libraries will be automatically installed.
+### Prerequisites
 
-## Usage
+- [Pyscript Integration](https://hacs-pyscript.readthedocs.io/en/latest/)
+- Set `allow_all_imports` and `hass_is_global` to true. (Described [here](https://hacs-pyscript.readthedocs.io/en/latest/configuration.html))
+- Ledvance account with devices configured
 
-1. Start the program by running the batch script 'start-EN.bat' for English & 'start-DE.bat' for German.
-2. Enter your email address and password in the input fields.
-3. Click **"Retrieve Device Data"** to view a list of your devices.
-4. Click on a cell in the table to copy its content to the clipboard.
-5. Double-click a row to view detailed device information.
-6. Click **"Save User Data"** to store your login credentials for future sessions.
+### Setup
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Help
-
-If you need assistance, click on the **"Help"** button in the application for a detailed guide on how to use the program.
+- Replace placeholders in `pyscript\sync_tuya_keys.py` with your Ledvance account credentials.
+- Copy `pyscript_modules` and `pyscript` to your Home Assistant config directory.
+- In your Home Assistant dashboard should now be under `Developer tools` --> `Services` a service called `Pyscript Python scripting: synctuyakeys` that you can call. (You may have to restart before)
+- (If you want Log output, you need to [change the log level to INFO](https://hacs-pyscript.readthedocs.io/en/latest/reference.html#logging) or use [jupyter](https://jupyter.org/install))
 
 
 
-This project is available in multiple languages:
-- [English](README-en.md)
-- [Deutsch](README-de.md)
+## Credits
+
+Credits for the python Tuya API client go to: https://github.com/rgsilva/homeassistant-positivo
+I also extracted the keys/secrets by following his guide: https://blog.rgsilva.com/reverse-engineering-positivos-smart-home-app/
