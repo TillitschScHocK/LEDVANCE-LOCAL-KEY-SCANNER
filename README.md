@@ -1,5 +1,3 @@
-Klar, hier ist der gesamte Inhalt als GitHub-Markdown, formatiert in einer einzigen Codebox:
-
 # Tuya/Ledvance Gerätedaten-Manager
 
 Ein Desktop-Tool zum Abrufen und Verwalten von Gerätedaten für Ledvance-Geräte über die Tuya-API.
