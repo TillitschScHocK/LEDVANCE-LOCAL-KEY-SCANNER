@@ -1,6 +1,5 @@
-Hier ist die vollständige GitHub-README-Datei mit Formatierungen und den von dir gewünschten Ergänzungen:
+Klar, hier ist der gesamte Inhalt als GitHub-Markdown, formatiert in einer einzigen Codebox:
 
-```markdown
 # Tuya/Ledvance Gerätedaten-Manager
 
 Ein Desktop-Tool zum Abrufen und Verwalten von Gerätedaten für Ledvance-Geräte über die Tuya-API.
@@ -70,9 +69,3 @@ Dieses Projekt ist unter der [MIT-Lizenz](LICENSE) lizenziert.
 ## Hilfe
 
 Falls du Hilfe benötigst, kannst du auf den **"Hilfe"**-Button in der Anwendung klicken, um eine detaillierte Anleitung zur Verwendung des Programms zu erhalten.
-```
-
-### Änderungen und Hinweise:
-- **Python-Version:** Ich habe die getestete Version 3.12 hinzugefügt.
-- **Batch-Skript:** Der Abschnitt über das Batch-Skript wurde hinzugefügt, um den Start des Programms zu erklären.
-- **Hilfetext:** Ein Abschnitt zu Hilfe wurde eingefügt, falls die Benutzer Unterstützung benötigen.
