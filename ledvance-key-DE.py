@@ -41,8 +41,8 @@ def fetch_devices(username: str, password: str):
         raise RuntimeError(f"Unerwarteter Fehler: {e}")
 
     devices = []
-    for group in api.groups():
-        for dev in api.devices(group["groupId"]):
+    for group in (api.groups() or []):
+        for dev in (api.devices(group["groupId"]) or []):
             devices.append({
                 "name": dev.name,
                 "id": dev.id,
@@ -55,10 +55,12 @@ class DeviceGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Ledvance Gerätedaten")
-        
-        self.root.iconbitmap("tuya.ico")
 
-        # Überschrift hinzufügen
+        try:
+            self.root.iconbitmap("tuya.ico")
+        except Exception:
+            pass
+
         self.title_label = ttk.Label(root, text="Ledvance Gerätedaten-Manager", font=("Helvetica", 16, "bold"))
         self.title_label.grid(row=0, column=0, columnspan=3, pady=10)
 
@@ -145,7 +147,10 @@ class DeviceGUI:
             self.password_entry.config(show="*")
 
     def show_device_details(self, event):
-        item = self.treeview.selection()[0]
+        selection = self.treeview.selection()
+        if not selection:
+            return
+        item = selection[0]
         device = self.treeview.item(item)["values"]
         details = f"Gerätename: {device[0]}\nGeräte-ID: {device[1]}\nLokaler Schlüssel: {device[2]}\nIP-Adresse: {device[3]}"
         messagebox.showinfo("Gerätedetails", details)
@@ -155,28 +160,28 @@ class DeviceGUI:
         if region == "cell":
             column = self.treeview.identify_column(event.x)
             item = self.treeview.identify_row(event.y)
-            
+
             if item and column:
                 column_index = int(column[1:]) - 1  # Convert column string to index
                 cell_value = self.treeview.item(item, "values")[column_index]
-                
+
                 self.root.clipboard_clear()
                 self.root.clipboard_append(str(cell_value))
                 self.status_var.set(f"Zellinhalt kopiert: {cell_value}")
 
     def show_help(self):
         help_text = """
-        Willkommen beim Tuya/Ledvance Gerätedaten-Manager!
+Willkommen beim Tuya/Ledvance Gerätedaten-Manager!
 
-        Anleitung:
-        1. Geben Sie Ihren E-Mail und Ihr Passwort ein.
-        2. Klicken Sie auf "Gerätedaten abrufen", um Ihre Geräte anzuzeigen.
-        3. Klicken Sie auf eine Zelle in der Tabelle, um deren Inhalt zu kopieren.
-        4. Doppelklicken Sie auf eine Zeile, um detaillierte Geräteinformationen zu sehen.
-        5. Nutzen Sie "Benutzerdaten speichern", um Ihre Anmeldedaten für zukünftige Sitzungen zu speichern.
+Anleitung:
+1. Geben Sie Ihren E-Mail und Ihr Passwort ein.
+2. Klicken Sie auf "Gerätedaten abrufen", um Ihre Geräte anzuzeigen.
+3. Klicken Sie auf eine Zelle in der Tabelle, um deren Inhalt zu kopieren.
+4. Doppelklicken Sie auf eine Zeile, um detaillierte Geräteinformationen zu sehen.
+5. Nutzen Sie "Benutzerdaten speichern", um Ihre Anmeldedaten für zukünftige Sitzungen zu speichern.
 
-        Tipp: Der Augen-Button neben dem Passwortfeld zeigt oder verbirgt das Passwort.
-        """
+Tipp: Der Augen-Button neben dem Passwortfeld zeigt oder verbirgt das Passwort.
+"""
         messagebox.showinfo("Hilfe", help_text)
 
 if __name__ == "__main__":

@@ -41,8 +41,8 @@ def fetch_devices(username: str, password: str):
         raise RuntimeError(f"Unexpected error: {e}")
 
     devices = []
-    for group in api.groups():
-        for dev in api.devices(group["groupId"]):
+    for group in (api.groups() or []):
+        for dev in (api.devices(group["groupId"]) or []):
             devices.append({
                 "name": dev.name,
                 "id": dev.id,
@@ -56,9 +56,11 @@ class DeviceGUI:
         self.root = root
         self.root.title("Ledvance Device Data")
 
-        self.root.iconbitmap("tuya.ico")
+        try:
+            self.root.iconbitmap("tuya.ico")
+        except Exception:
+            pass
 
-        # Add header
         self.title_label = ttk.Label(root, text="Ledvance Device Data Manager", font=("Helvetica", 16, "bold"))
         self.title_label.grid(row=0, column=0, columnspan=3, pady=10)
 
@@ -145,7 +147,10 @@ class DeviceGUI:
             self.password_entry.config(show="*")
 
     def show_device_details(self, event):
-        item = self.treeview.selection()[0]
+        selection = self.treeview.selection()
+        if not selection:
+            return
+        item = selection[0]
         device = self.treeview.item(item)["values"]
         details = f"Device Name: {device[0]}\nDevice ID: {device[1]}\nLocal Key: {device[2]}\nIP Address: {device[3]}"
         messagebox.showinfo("Device Details", details)
@@ -155,28 +160,28 @@ class DeviceGUI:
         if region == "cell":
             column = self.treeview.identify_column(event.x)
             item = self.treeview.identify_row(event.y)
-            
+
             if item and column:
                 column_index = int(column[1:]) - 1  # Convert column string to index
                 cell_value = self.treeview.item(item, "values")[column_index]
-                
+
                 self.root.clipboard_clear()
                 self.root.clipboard_append(str(cell_value))
                 self.status_var.set(f"Cell content copied: {cell_value}")
 
     def show_help(self):
         help_text = """
-        Welcome to the Tuya/Ledvance Device Data Manager!
+Welcome to the Tuya/Ledvance Device Data Manager!
 
-        Instructions:
-        1. Enter your email and password.
-        2. Click "Fetch Device Data" to display your devices.
-        3. Click on any cell in the table to copy its content.
-        4. Double-click a row to see detailed device information.
-        5. Use "Save User Data" to save your credentials for future sessions.
+Instructions:
+1. Enter your email and password.
+2. Click "Fetch Device Data" to display your devices.
+3. Click on any cell in the table to copy its content.
+4. Double-click a row to see detailed device information.
+5. Use "Save User Data" to save your credentials for future sessions.
 
-        Tip: The eye button next to the password field toggles password visibility.
-        """
+Tip: The eye button next to the password field toggles password visibility.
+"""
         messagebox.showinfo("Help", help_text)
 
 if __name__ == "__main__":
